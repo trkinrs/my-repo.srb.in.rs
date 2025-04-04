@@ -34,12 +34,12 @@ task :deploy do
     Dir.chdir tmp
 
     # Prepare all the content in the repo for deployment.
-    # sh "git init" # Init the repo.
-    # sh "git checkout #{GITHUB_PAGES_BRANCH} 2>/dev/null || git checkout --orphan #{GITHUB_PAGES_BRANCH}"
-    # sh "git add . && git commit -m 'Site updated at #{Time.now.utc}'" # Add and commit all the files.
+    sh "git init" # Init the repo.
+    sh "git checkout #{GITHUB_PAGES_BRANCH} 2>/dev/null || git checkout --orphan #{GITHUB_PAGES_BRANCH}"
+    sh "git add . && git commit -m 'Site updated at #{Time.now.utc}'" # Add and commit all the files.
 
     # Add the origin remote for the parent repo to the tmp folder.
-    # sh "git remote add origin #{origin}"
+    sh "git remote add origin #{origin}"
 
     puts "Pushing to #{origin}"
     # sh "git push --force origin #{GITHUB_PAGES_BRANCH}"
