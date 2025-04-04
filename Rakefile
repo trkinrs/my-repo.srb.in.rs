@@ -39,7 +39,7 @@ task :deploy do
     # sh "git add . && git commit -m 'Site updated at #{Time.now.utc}'" # Add and commit all the files.
 
     # Add the origin remote for the parent repo to the tmp folder.
-    sh "git remote add origin #{origin}"
+    # sh "git remote add origin #{origin}"
 
     puts "Pushing to #{origin}"
     # sh "git push --force origin #{GITHUB_PAGES_BRANCH}"
