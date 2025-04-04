@@ -22,8 +22,8 @@ desc "Deploy _site to #{GITHUB_PAGES_BRANCH} branch"
 task :deploy do
   # Save current branch
   origin = `git config --get remote.origin.url`
-  fail "origin is empty" if origin.empty?
-  # Build the site
+  fail "origin_is_empty" if origin.empty?
+
   Rake::Task[:build].invoke
 
   puts 1
