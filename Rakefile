@@ -25,6 +25,7 @@ task :deploy do
   # Build the site
   Rake::Task[:build].invoke
 
+  puts 1
   Dir.mktmpdir do |tmp|
     # Copy accross our compiled _site directory.
     cp_r "_site/.", tmp
@@ -33,17 +34,18 @@ task :deploy do
     Dir.chdir tmp
 
     # Prepare all the content in the repo for deployment.
-    sh "git init" # Init the repo.
-    sh "git checkout #{GITHUB_PAGES_BRANCH} 2>/dev/null || git checkout --orphan #{GITHUB_PAGES_BRANCH}"
-    sh "git add . && git commit -m 'Site updated at #{Time.now.utc}'" # Add and commit all the files.
+    # sh "git init" # Init the repo.
+    # sh "git checkout #{GITHUB_PAGES_BRANCH} 2>/dev/null || git checkout --orphan #{GITHUB_PAGES_BRANCH}"
+    # sh "git add . && git commit -m 'Site updated at #{Time.now.utc}'" # Add and commit all the files.
 
     # Add the origin remote for the parent repo to the tmp folder.
     sh "git remote add origin #{origin}"
 
     puts "Pushing to #{origin}"
-    sh "git push --force origin #{GITHUB_PAGES_BRANCH}"
+    # sh "git push --force origin #{GITHUB_PAGES_BRANCH}"
   end
+  puts 2
 end
 
 desc "Full deploy: commit source and publish site"
-task :default => [:commit_source, :deploy]
+task default: [ :commit_source, :deploy ]
