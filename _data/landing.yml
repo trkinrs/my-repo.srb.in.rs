@@ -1,0 +1,39 @@
+address: Ulica Poljoprivrednika 12, Beograd, Srbija
+images:
+  - url: "/assets/images/apples.jpg"
+    alt: "Jabuke"
+  - url: "/assets/images/lettuce.jpg"
+    alt: "Zelena salata"
+  - url: "/assets/images/tomato_juice.jpg"
+    alt: "Mleveni paradajz"
+phone: +381 64 123 4567
+email: info@poljoprivreda.rs
+working_hours:
+- "Ponedeljak - Petak: 08:00 - 18:00"
+- "Subota: 08:00 - 14:00"
+- "Nedelja: Zatvoreno"
+
+_schema:
+  address:
+    type: text_field
+    label: Adresa
+  images:
+  - url:
+      type: image_field
+      label: Slika u slajderu
+    alt:
+      type: text_field
+      label: Alt za SEO
+  phone:
+    type: text_field
+    label: Telefon
+  email:
+    type: text_field
+    label: Imejl
+  working_hours_work_days:
+    type: text_field
+    label: Imejl
+  working_hours:
+  - type: text_field
+    label: Radno vreme
+
