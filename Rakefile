@@ -3,12 +3,12 @@ require 'fileutils'
 require "tmpdir"
 
 GITHUB_PAGES_BRANCH = "gh-pages"
-BUILD_DIR = "_site"
+SITE_DIR = "_site"
 
 desc "Build the site with Jekyll"
 task :build do
   sh "bundle install"
-  sh "bundle exec jekyll build"
+  sh "bundle exec jekyll build -d #{SITE_DIR}"
 end
 
 desc "Commit source code to main"
@@ -18,7 +18,7 @@ task :commit_source do
   sh "git push origin main"
 end
 
-desc "Deploy _site to #{GITHUB_PAGES_BRANCH} branch"
+desc "Deploy #{SITE_DIR} to #{GITHUB_PAGES_BRANCH} branch"
 task :deploy do
   origin = `git config --get remote.origin.url`
   fail "origin is empty" if origin.empty?
@@ -27,7 +27,7 @@ task :deploy do
 
   current_public_folder = Dir.pwd
   Dir.mktmpdir do |tmp|
-    cp_r "_site/.", tmp
+    cp_r "#{SITE_DIR}/.", tmp
 
     Dir.chdir tmp
 

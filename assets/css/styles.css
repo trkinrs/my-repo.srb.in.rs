@@ -10,17 +10,16 @@
 }
 
 header {
-    animation: fadeIn 1.5s ease-out;
+    animation: fadeIn 5s ease-out;
 }
 
 
 body {
-    background-color: #F4FFC3;
     font-family: "Poppins", sans-serif;
 }
 header {
     position: relative;
-    background: url('/assets/images/produce.jpg') center/cover no-repeat;
+    background: url('/lite-page-green-template/assets/images/produce.jpg') center/cover no-repeat;
     color: white;
     padding: 100px 0;
     margin-top: 56px;
@@ -119,6 +118,10 @@ header h1 {
     border-radius: 10px;
 }
 
+#products img:hover {
+    animation: fadeIn 1s ease-in-out;
+}
+
 #products h2 {
     font-size: 2rem;
     font-weight: bold;
@@ -138,10 +141,29 @@ header h1 {
     left: 25%;
 }
 
-.carousel-item p {
+.carousel-item {
+    position: relative;
+    display: inline-block;
+}
+
+.carousel-item-description {
     font-size: 1.2rem;
     font-weight: bold;
-    color: #5D8736;
+    color: white;
+    background-color: black;
+    width: fit-content;
+    padding: 10px 20px;
+    border-radius: 10px;
+    opacity: 70%;
+    display: none;
+    position:absolute;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.carousel-item img:hover + .carousel-item-description {
+    display: block;
 }
 
 .carousel-control-prev-icon, .carousel-control-next-icon {
@@ -227,7 +249,8 @@ html {
 }
 
 :root {
-    --bg-color: linear-gradient(to bottom, #F4FFC3, #E0F0A0);
+    /* --bg-color: linear-gradient(to bottom, #F4FFC3, #E0F0A0); */
+    --bg-color: url('/lite-page-green-template/assets/images/leaves-paralax-light.png') repeat;
     --text-color: #333;
     --card-bg: linear-gradient(to bottom, #F4FFC3, #E0F0A0);
     --price-color: #5D8736;
@@ -236,7 +259,8 @@ html {
 }
 
 [data-bs-theme="dark"] {
-    --bg-color: linear-gradient(to bottom, #2E3B21, #1F2918);
+    /* --bg-color: linear-gradient(to bottom, #2E3B21, #1F2918); */
+    --bg-color: url('/lite-page-green-template/assets/images/leaves-paralax-dark.png') repeat;
     --text-color: #f8f9fa;
     --card-bg: #3B4A2E;
     --price-color: #A9C46C;
@@ -279,5 +303,15 @@ body {
 #recommended {
     background-color: #809D3C;
 }
+
+.parallax-bg {
+    /* background: url('/lite-page-green-template/assets/images/leaves-paralax-light.png') repeat; */
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
 
 /* https://colorhunt.co/palette/5d8736809d3ca9c46cf4ffc3 */

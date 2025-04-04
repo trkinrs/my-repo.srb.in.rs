@@ -2,28 +2,62 @@
 layout: default
 title: Poljoprivredni proizvodi
 ---
-{% include navigation.html %}
+<style>
+    img {
+      width: 600px;
+      max-width: 100%;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease-in-out;
+    }
 
-<section id="products" class="container my-5">
-        <h2 class="text-center mb-4">{{ site.data.i18n.our_products }}</h2>
-        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                {% for image in site.data.landing.images %}
-                    <div class="carousel-item {% if forloop.index == 1 %}active{% endif %} text-center">
-                        <img src="{{ site.baseurl }}{{ image.url }}" class="d-block mx-auto" alt="{{ image.alt }}">
-                        <p class="mt-2">{{ image.alt }}</p>
-                    </div>
-                {% endfor %}
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon p-4" aria-hidden="true"></span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon p-4" aria-hidden="true"></span>
-            </button>
-        </div>
-</section>
-<section id="contact" class="container my-5">
+    img:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .carousel-item img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    .hidden-section {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+  }
+
+  .show-section {
+    opacity: 0.9;
+    transform: translateX(0);
+  }
+  </style>
+{% include navigation.html %}
+<section id="products" class="splide container my-5 hidden-section" aria-label="Slide Container Example">
+    <h2 class="text-center mb-4">Naši proizvodi</h2>
+    <div class="splide__track">
+      <ul class="splide__list">
+      {% for image in site.data.landing.images %}
+        <li class="splide__slide text-center carousel-item">
+            <img src="{{ site.baseurl }}{{ image.url }}" class="d-block mx-auto carousel-img" alt="{{ image.alt }}" data-hover="{{ site.baseurl }}{{ image.hover }}">
+            <p class="mt-2 carousel-item-description">{{ image.alt }}</p>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="splide__arrows">
+        <button class="splide__arrow splide__arrow--prev">
+          <span class="carousel-control-prev-icon p-4" aria-hidden="true"></span>
+        </button>
+        <button class="splide__arrow splide__arrow--next">
+          <span class="carousel-control-next-icon p-4" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </section>
+<section id="contact" class="container my-5 hidden-section">
         <h2 class="text-center mb-4">{{ site.data.i18n.contact_us }}</h2>
         <div class="row">
             <div class="col-md-6">
