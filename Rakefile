@@ -26,7 +26,7 @@ task :deploy do
 
   Rake::Task[:build].invoke
 
-  puts 1
+  current = Dir.pwd
   Dir.mktmpdir do |tmp|
     # Copy accross our compiled _site directory.
     cp_r "_site/.", tmp
@@ -44,8 +44,8 @@ task :deploy do
 
     puts "Pushing to #{origin}"
     sh "git push --force origin #{GITHUB_PAGES_BRANCH}"
+    Dir.chdir current
   end
-  puts 2
 end
 
 desc "Full deploy: commit source and publish site"
