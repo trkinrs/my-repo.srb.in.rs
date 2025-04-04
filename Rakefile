@@ -7,6 +7,7 @@ BUILD_DIR = "_site"
 
 desc "Build the site with Jekyll"
 task :build do
+  sh "bundle install"
   sh "bundle exec jekyll build"
 end
 
