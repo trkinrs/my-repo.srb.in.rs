@@ -42,7 +42,7 @@ task :deploy do
     sh "git remote add origin #{origin}"
 
     puts "Pushing to #{origin}"
-    # sh "git push --force origin #{GITHUB_PAGES_BRANCH}"
+    sh "git push --force origin #{GITHUB_PAGES_BRANCH}"
   end
   puts 2
 end
