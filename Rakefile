@@ -1,14 +1,32 @@
-require 'rake'
-require 'fileutils'
+require "rake"
+require "fileutils"
 require "tmpdir"
 
 GITHUB_PAGES_BRANCH = "gh-pages"
-SITE_DIR = "_site"
+PLATFORM = "--platform linux/amd64"
+JEKYLL_IMAGE = "jekyll/jekyll:latest"
+REPO_DIR = File.expand_path(__dir__)
+BUILD_DIR = "#{REPO_DIR}_site"
 
 desc "Build the site with Jekyll"
-task :build do
-  sh "bundle install"
-  sh "bundle exec jekyll build -d #{SITE_DIR}"
+task :build, [:baseurl] do |task, args|
+  baseurl = args[:baseurl] || ""
+  if ENV["LP_USE_DOCKER_INSTEAD_OF_LOCAL_RUBY"] == "true"
+    # TODO: does not work on macOS
+    sh <<~HERE_DOC
+      docker run --rm \
+        #{PLATFORM} \
+        --volume "#{REPO_DIR}:/srv/jekyll" \
+        --volume "#{BUILD_DIR}:/srv/jekyll/_site" \
+        -w /srv/jekyll \
+        #{JEKYLL_IMAGE} \
+        jekyll build \
+        --baseurl '#{baseurl}'
+    HERE_DOC
+  else
+    # sh "bundle install"
+    sh "bundle exec jekyll build -d #{BUILD_DIR} --baseurl '#{baseurl}'"
+  end
 end
 
 desc "Commit source code to main"
@@ -18,7 +36,7 @@ task :commit_source do
   sh "git push origin main"
 end
 
-desc "Deploy #{SITE_DIR} to #{GITHUB_PAGES_BRANCH} branch"
+desc "Deploy #{BUILD_DIR} to #{GITHUB_PAGES_BRANCH} branch"
 task :deploy do
   origin = `git config --get remote.origin.url`
   fail "origin is empty" if origin.empty?
@@ -27,7 +45,7 @@ task :deploy do
 
   current_public_folder = Dir.pwd
   Dir.mktmpdir do |tmp|
-    cp_r "#{SITE_DIR}/.", tmp
+    cp_r "#{BUILD_DIR}/.", tmp
 
     Dir.chdir tmp
 
@@ -45,4 +63,9 @@ task :deploy do
 end
 
 desc "Full deploy: commit source and publish site"
-task default: [ :commit_source, :deploy ]
+task commit_and_push: [ :commit_source, :deploy ]
+
+desc "Pull the repo"
+task :pull do |task, args|
+  sh "git pull"
+end
